@@ -62,3 +62,15 @@ class FlightViewTestCase(TestCase):
         c.post(reverse('flights:book', args=(f.id,)),
                {'passenger': passenger.id})
         self.assertEqual(f.passengers.count(), 1)
+
+    def test_can_book_available_seat_flight(self):
+        """ can book capacity flight left"""
+
+        passenger = Passenger.objects.create(
+            first="Ron", last="Wesley")
+        f = Flight.objects.first()
+
+        c = Client()
+        c.post(reverse('flights:book', args=(f.id,)),
+               {'passenger': passenger.id})
+        self.assertEqual(f.passengers.count(), 2)
