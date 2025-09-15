@@ -69,6 +69,8 @@ class FlightViewTestCase(TestCase):
         passenger = Passenger.objects.create(
             first="Ron", last="Wesley")
         f = Flight.objects.first()
+        f.capacity = 4
+        f.save()
 
         c = Client()
         c.post(reverse('flights:book', args=(f.id,)),
